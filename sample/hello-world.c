@@ -35,9 +35,7 @@ static void conn_writecb(struct bufferevent *, void *);
 static void conn_eventcb(struct bufferevent *, short, void *);
 static void signal_cb(evutil_socket_t, short, void *);
 
-int
-main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
 	struct event_base *base;
 	struct evconnlistener *listener;
 	struct event *signal_event;
@@ -87,8 +85,7 @@ main(int argc, char **argv)
 
 static void
 listener_cb(struct evconnlistener *listener, evutil_socket_t fd,
-    struct sockaddr *sa, int socklen, void *user_data)
-{
+    struct sockaddr *sa, int socklen, void *user_data) {
 	struct event_base *base = user_data;
 	struct bufferevent *bev;
 
