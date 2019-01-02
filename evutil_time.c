@@ -261,10 +261,7 @@ evutil_gettime_monotonic(struct evutil_monotonic_timer *timer,
    Platforms don't agree about whether it should jump on a sleep/resume.
  */
 
-int
-evutil_configure_monotonic_time_(struct evutil_monotonic_timer *base,
-    int flags)
-{
+int evutil_configure_monotonic_time_(struct evutil_monotonic_timer *base, int flags) {
 	/* CLOCK_MONOTONIC exists on FreeBSD, Linux, and Solaris.  You need to
 	 * check for it at runtime, because some older kernel versions won't
 	 * have it working. */
@@ -469,10 +466,7 @@ evutil_GetTickCount_(struct evutil_monotonic_timer *base)
 	}
 }
 
-int
-evutil_configure_monotonic_time_(struct evutil_monotonic_timer *base,
-    int flags)
-{
+int evutil_configure_monotonic_time_(struct evutil_monotonic_timer *base, int flags) {
 	const int precise = flags & EV_MONOT_PRECISE;
 	const int fallback = flags & EV_MONOT_FALLBACK;
 	HANDLE h;
@@ -558,18 +552,12 @@ evutil_gettime_monotonic_(struct evutil_monotonic_timer *base,
    wants to or not.
  */
 
-int
-evutil_configure_monotonic_time_(struct evutil_monotonic_timer *base,
-    int precise)
-{
+int evutil_configure_monotonic_time_(struct evutil_monotonic_timer *base, int precise) {
 	memset(base, 0, sizeof(*base));
 	return 0;
 }
 
-int
-evutil_gettime_monotonic_(struct evutil_monotonic_timer *base,
-    struct timeval *tp)
-{
+int evutil_gettime_monotonic_(struct evutil_monotonic_timer *base, struct timeval *tp) {
 	if (evutil_gettimeofday(tp, NULL) < 0)
 		return -1;
 	adjust_monotonic_time(base, tp);

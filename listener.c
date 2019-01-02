@@ -152,11 +152,9 @@ static const struct evconnlistener_ops evconnlistener_event_ops = {
 
 static void listener_read_cb(evutil_socket_t, short, void *);
 
-struct evconnlistener *
-evconnlistener_new(struct event_base *base,
+struct evconnlistener * evconnlistener_new(struct event_base *base,
     evconnlistener_cb cb, void *ptr, unsigned flags, int backlog,
-    evutil_socket_t fd)
-{
+    evutil_socket_t fd) {
 	struct evconnlistener_event *lev;
 
 #ifdef _WIN32
@@ -240,7 +238,7 @@ evconnlistener_new_bind(struct event_base *base, evconnlistener_cb cb,
 			goto err;
 	}
 
-	if (flags & LEV_OPT_DEFERRED_ACCEPT) {
+	if (flags & LEV_OPT_DEFERRED_ACCEPT) {//?? DEFFERED_ACCEPT
 		if (evutil_make_tcp_listen_socket_deferred(fd) < 0)
 			goto err;
 	}

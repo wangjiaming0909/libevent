@@ -56,6 +56,7 @@ int main(int argc, char **argv) {
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(PORT);
 
+	//socket setsocketopt bind
 	listener = evconnlistener_new_bind(base, listener_cb, (void *)base,
 	    LEV_OPT_REUSEABLE|LEV_OPT_CLOSE_ON_FREE, -1,
 	    (struct sockaddr*)&sin,

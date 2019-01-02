@@ -599,9 +599,7 @@ event_disable_debug_mode(void)
 #endif
 }
 
-struct event_base *
-event_base_new_with_config(const struct event_config *cfg)
-{
+struct event_base * event_base_new_with_config(const struct event_config *cfg) {
 	int i;
 	struct event_base *base;
 	int should_check_environment;
@@ -3487,25 +3485,25 @@ event_mm_malloc_(size_t sz)
 		return malloc(sz);
 }
 
-void *
-event_mm_calloc_(size_t count, size_t size)
-{
+//count为分配多少个object, size表示每个对象的大小
+//总大小为count * size
+void * event_mm_calloc_(size_t count, size_t size) {
 	if (count == 0 || size == 0)
 		return NULL;
 
 	if (mm_malloc_fn_) {
 		size_t sz = count * size;
 		void *p = NULL;
-		if (count > EV_SIZE_MAX / size)
+		if (count > EV_SIZE_MAX / size)//需要的太多
 			goto error;
-		p = mm_malloc_fn_(sz);
+		p = mm_malloc_fn_(sz);//大小为sz
 		if (p)
-			return memset(p, 0, sz);
+			return memset(p, 0, sz);//分配完成，置0
 	} else {
-		void *p = calloc(count, size);
+		void *p = calloc(count, size);//没有设置分配函数
 #ifdef _WIN32
 		/* Windows calloc doesn't reliably set ENOMEM */
-		if (p == NULL)
+		if (p == NULL)//出错
 			goto error;
 #endif
 		return p;
