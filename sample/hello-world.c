@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(PORT);
 
-	//socket setsocketopt bind
+	//socket setsocketopt bind and listen
 	listener = evconnlistener_new_bind(base, listener_cb, (void *)base,
 	    LEV_OPT_REUSEABLE|LEV_OPT_CLOSE_ON_FREE, -1,
 	    (struct sockaddr*)&sin,
@@ -84,9 +84,9 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
-static void
-listener_cb(struct evconnlistener *listener, evutil_socket_t fd,
-    struct sockaddr *sa, int socklen, void *user_data) {
+static void listener_cb(struct evconnlistener *listener, evutil_socket_t fd,
+    struct sockaddr *sa, int socklen, void *user_data) 
+{
 	struct event_base *base = user_data;
 	struct bufferevent *bev;
 
